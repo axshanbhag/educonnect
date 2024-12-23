@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EduConnect - Register</title>
+    <style>
+        /* CSS styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(to right, #f4f4f4, #e0e0e0);
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .register-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        .register-container h1 {
+            margin-top: 0;
+            color: #ff6f61;
+            font-size: 2em;
+            text-align: center;
+        }
+        .register-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .register-container input, .register-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 10px;
+            background: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .register-container button:hover {
+            background: #ff3d2e;
+        }
+        .register-container .message {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .register-container .message a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        .register-container .message a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .footer a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h1>Class Code Entry</h1>
+        <form id="register-form">
+            <label for="name">Class Name:</label>
+            <input type="text" id="classname" name="Enter Class Name" required>
+
+            <label for="code">Class Code:</label>
+            <input type="text" id="classcode" name="Enter Class Code" required>
+
+        <button type="button" onclick="addClassCode()">Add Class</button>  <!-- Prevent default form submission -->
+        </form>
+    </div>
+
+    <script>
+        function addClassCode() {
+            const className = document.getElementById('classname').value;
+            const classCode = document.getElementById('classcode').value;
+
+            if (className && classCode) {
+                // Store className and classCode in localStorage
+                localStorage.setItem('className', className);
+                localStorage.setItem('classCode', classCode);
+
+                // Redirect to coding.html
+                window.location.href = 'dashboard.html';
+            } else {
+                alert('Please enter both class name and class code.');
+            }
+        }
+    </script>
+</body>
+</html>
