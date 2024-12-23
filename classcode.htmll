@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Points Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 2em;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #444;
+        }
+        .section label {
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        .section input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        .section button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .section button:hover {
+            background: #ff3d2e;
+        }
+        .points-summary {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .activity-log {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .activity-log th, .activity-log td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .activity-log th {
+            background-color: #f2f2f2;
+        }
+        .activity-log tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+            .section button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
+        }
+        .nav-bar a:hover {
+            color: #fff;
+            background: #ff6f61;
+        }
+        @media (max-width: 768px) {
+            .nav-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-bar a {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .header input[type="text"] {
+                width: 100%;
+            }
+            .content {
+                padding: 10px;
+            }
+            .post, .notification, .message {
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .nav-bar a {
+                font-size: 0.9em;
+            }
+            .post .user-info img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+        }
+        .header {
+            background: #ff6f61;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ff3d2e;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+        .header input[type="text"]::placeholder {
+            color: #fff;
+        }
+        .register-container {
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+        }
+        .register-container h1 {
+            margin-top: 0;
+            color: #ff6f61;
+            font-size: 2em;
+            text-align: center;
+        }
+        .register-container label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+        .register-container input, .register-container select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        .register-container button {
+            width: 100%;
+            padding: 10px;
+            background: #ff6f61;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .register-container button:hover {
+            background: #ff3d2e;
+        }
+        .register-container .message {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .register-container .message a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        .register-container .message a:hover {
+            text-decoration: underline;
+        }
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .footer a {
+            color: #ff6f61;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+        .error-message {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>EduConnect</h1>
+        <input type="text" id="search-bar" placeholder="Search...">
+    </div>
+    <div class="nav-bar">
+        <a href="point.html">Points</a>
+        <a href="profile.html">Profile</a>
+        <a href="notification.html">Notifications</a>
+        <a href="message.html">Messages</a>
+        <a href="setting.html">Settings</a>
+        <a href="post.html">Post a Video</a>
+        <a href="assignments.html">Post Assignments</a>
+        <a href="classes.html">Classes</a>
+        <a href="destresser.html">Take a Break</a>
+    </div>
+    <div class="register-container">
+        <h1>Class Code Entry</h1>
+        <form id="register-form">
+            <label for="name">Class Name:</label>
+            <input type="text" id="classname" name="Enter Class Name" required>
+
+            <label for="code">Class Code:</label>
+            <input type="text" id="classcode" name="Enter Class Code" required>
+
+        <button type="button" onclick="addClassCode()">Add Class</button>  <!-- Prevent default form submission -->
+        </form>
+    </div>
+
+    <script>
+        function addClassCode() {
+            const className = document.getElementById('classname').value;
+            const classCode = document.getElementById('classcode').value;
+
+            if (className && classCode) {
+                // Store className and classCode in localStorage
+                localStorage.setItem('className', className);
+                localStorage.setItem('classCode', classCode);
+
+                // Redirect to classes.html
+                window.location.href = 'classes.html';
+            } else {
+                alert('Please enter both class name and class code.');
+            }
+        }
+    </script>
+</body>
+</html>
