@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Settings Page</title>
+    <style>
+        /* Default (Light) Theme Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+            transition: background 0.3s, color 0.3s;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s, color 0.3s;
+        }
+        h1, h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section label {
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        .section input[type="text"],
+        .section input[type="email"],
+        .section input[type="url"],
+        .section textarea,
+        .section select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+        .section button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .section button:hover {
+            background: #ff3d2e;
+        }
+        .theme-preview {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+        .theme-preview div {
+            flex: 1;
+            margin-right: 10px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+            color: #fff;
+            font-size: 1.1em;
+        }
+        .theme-preview div:last-child {
+            margin-right: 0;
+        }
+        .light-theme {
+            background: #fff;
+            color: #333;
+        }
+        .dark-theme {
+            background: #121212;
+            color: #e0e0e0;
+        }
+        /* Dark Theme Styles */
+        .dark-theme .container {
+            background: #1e1e1e;
+            color: #e0e0e0;
+        }
+        .dark-theme .section input[type="text"],
+        .dark-theme .section input[type="email"],
+        .dark-theme .section input[type="url"],
+        .dark-theme .section textarea,
+        .dark-theme .section select {
+            background: #333;
+            border-color: #555;
+            color: #e0e0e0;
+        }
+        .dark-theme .section button {
+            background: #ff6f61;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+            .section button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
+        }
+        .nav-bar a:hover {
+            color: #fff;
+            background: #ff6f61;
+        }
+        @media (max-width: 768px) {
+            .nav-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-bar a {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .header input[type="text"] {
+                width: 100%;
+            }
+            .content {
+                padding: 10px;
+            }
+            .post, .notification, .message {
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .nav-bar a {
+                font-size: 0.9em;
+            }
+            .post .user-info img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+        }
+        .header {
+            background: #ff6f61;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ff3d2e;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+        .header input[type="text"]::placeholder {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>EduConnect</h1>
+        <input type="text" id="search-bar" placeholder="Search...">
+    </div>
+    <div class="nav-bar">
+        <a href="point.html">Points</a>
+        <a href="profile.html">Profile</a>
+        <a href="notification.html">Notifications</a>
+        <a href="message.html">Messages</a>
+        <a href="setting.html">Settings</a>
+        <a href="post.html">Post a Video</a>
+        <a href="assignments.html">Post Assignments</a>
+        <a href="classes.html">Classes</a>
+        <a href="destresser.html">Take a Break</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="container">
+        <h1>Settings</h1>
+        <!-- Theme Settings -->
+        <a href="index.html">Home</a>
+        <div class="section">
+            <h2>Theme Settings</h2>
+            <label for="theme">Select Theme:</label>
+            <select id="theme" onchange="changeTheme()">
+                <option value="light">Light Theme</option>
+                <option value="dark">Dark Theme</option>
+            </select>
+            <div class="theme-preview">
+                <div style = "color: black"; class="light-theme">Light Theme Preview</div>
+                <div class="dark-theme">Dark Theme Preview</div>
+            </div>
+        </div>
+
+        <!-- Notification Settings -->
+        <div class="section">
+            <h2>Notification Settings</h2>
+            <label for="email-notifications">Email Notifications:</label>
+            <select id="email-notifications">
+                <option value="all">All Notifications</option>
+                <option value="mentions">Mentions Only</option>
+                <option value="none">None</option>
+            </select>
+            <label for="sms-notifications">SMS Notifications:</label>
+            <select id="sms-notifications">
+                <option value="all">All Notifications</option>
+                <option value="mentions">Mentions Only</option>
+                <option value="none">None</option>
+            </select>
+            <button onclick="saveSettings()">Save Settings</button>
+        </div>
+    </div>
+    <script>
+        function changeTheme() {
+            const theme = document.getElementById('theme').value;
+            document.body.className = theme;  // Apply theme class to body
+            localStorage.setItem('theme', theme);  // Save theme preference
+        }
+
+        function saveSettings() {
+            const username = document.getElementById('username').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const profilePic = document.getElementById('profile-pic').value.trim();
+            const bio = document.getElementById('bio').value.trim();
+
+            if (!username || !email || !profilePic || !bio) {
+                alert('Please fill out all fields.');
+                return;
+            }
+
+            // For demonstration purposes, log the values
+            console.log('Saved Settings:');
+            console.log('Username:', username);
+            console.log('Email:', email);
+            console.log('Profile Picture URL:', profilePic);
+            console.log('Bio:', bio);
+
+            // Optionally, save settings to local storage or a server
+
+            alert('Settings saved successfully!');
+        }
+
+        // Apply the saved theme on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            document.getElementById('theme').value = savedTheme;
+            changeTheme();  // Apply saved theme
+        });
+    </script>
+</body>
+</html>
