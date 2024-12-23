@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Take a Break!</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+          background: #fff;
+          margin-top: 50px;
+        }
+
+        h1, h2 {
+            color: #333;
+        }
+
+        #game, #bubble-game {
+            margin-top: 20px;
+        }
+
+        .clicker, .bubble {
+            display: inline-block;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 30px;
+            font-size: 18px;
+            cursor: pointer;
+            border: none;
+            border-radius: 50%;
+            margin: 10px;
+            transition: transform 0.1s ease;
+        }
+
+        .clicker:hover, .bubble:hover {
+            background-color: #45a049;
+        }
+
+        .bubble {
+            width: 100px;
+            height: 100px;
+        }
+
+        .music-player {
+            margin-top: 30px;
+        }
+
+        .timer {
+            font-size: 20px;
+            margin-top: 20px;
+            color: #ff0000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Welcome to the Stress Relief Games and Music</h1>
+
+        <!-- Timer Section -->
+        <div class="timer">
+            <p>Time Left: <span id="timeLeft">10:00</span></p>
+        </div>
+        <a href="dashboard.html">Dashboard</a>
+        <!-- Clicker Game Section -->
+        <div id="game">
+            <h2>Clicker Game</h2>
+            <p>Click the button as many times as you can!</p>
+            <button class="clicker" onclick="increaseScore()">Click Me!</button>
+            <p id="scoreDisplay">Score: 0</p>
+        </div>
+
+        <!-- Bubble Popping Game Section -->
+        <div id="bubble-game">
+            <h2>Bubble Popping Game</h2>
+            <p>Pop all the bubbles!</p>
+            <div id="bubbleContainer"></div>
+        </div>
+
+        <!-- Music Section -->
+        <div class="music-player">
+            <h2>Music Player</h2>
+            <audio controls autoplay>
+                <source src="https://www.bensound.com/bensound-music/bensound-ukulele.mp3" type="audio/mpeg">
+
+            </audio>
+        </div>
+    </div>
+
+    <script>
+        // Timer logic for 10 minutes
+        const minutes = 10;
+        let time = minutes * 60; // time in seconds
+
+        const countdownEl = document.getElementById('timeLeft');
+
+        // Update countdown every second
+        setInterval(updateCountdown, 1000);
+
+        function updateCountdown() {
+            const minutesLeft = Math.floor(time / 60);
+            const secondsLeft = time % 60;
+
+            countdownEl.innerHTML = `${minutesLeft}:${secondsLeft < 10 ? '0' : ''}${secondsLeft}`;
+            time--;
+
+            if (time <= 0) {
+                window.location.href = "dashboard.html"; // Replace with actual dashboard page URL
+            }
+        }
+
+        // Simple clicker game
+        let score = 0;
+
+        function increaseScore() {
+            score++;
+            document.getElementById("scoreDisplay").textContent = "Score: " + score;
+        }
+
+        // Bubble Popping Game
+        const bubbleContainer = document.getElementById('bubbleContainer');
+
+        function createBubble() {
+            const bubble = document.createElement('div');
+            bubble.className = 'bubble';
+            bubble.style.top = Math.random() * 400 + 'px';
+            bubble.style.left = Math.random() * 400 + 'px';
+            bubble.onclick = function () {
+                popBubble(bubble);
+            };
+            bubbleContainer.appendChild(bubble);
+        }
+
+        function popBubble(bubble) {
+            bubble.style.transform = 'scale(0)';
+            setTimeout(() => {
+                bubble.remove();
+            }, 200); // Delay before removal for popping effect
+        }
+
+        // Generate 10 bubbles to pop
+        for (let i = 0; i < 10; i++) {
+            createBubble();
+        }
+    </script>
+
+</body>
+</html>
