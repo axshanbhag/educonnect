@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Messaging Platform</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .container {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+        .contacts {
+            width: 300px;
+            background: #fff;
+            border-right: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+        .contacts h2 {
+            margin: 0;
+            padding: 20px;
+            background: #ff6f61;
+            color: #fff;
+            font-size: 1.2em;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+        .contact-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            overflow-y: auto;
+            flex: 1;
+        }
+        .contact-list li {
+            padding: 15px;
+            border-bottom: 1px solid #ddd;
+            cursor: pointer;
+            transition: background 0.3s;
+            display: flex;
+            align-items: center;
+        }
+        .contact-list li:hover {
+            background: #f0f0f0;
+        }
+        .contact-list li.active {
+            background: #ff6f61;
+            color: #fff;
+        }
+        .contact-list li img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .contact-list li span {
+            flex: 1;
+        }
+        .chat {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+            padding: 20px;
+            overflow: hidden;
+        }
+        .chat-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .chat-header img {
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            margin-right: 15px;
+        }
+        .chat-content {
+            flex: 1;
+            overflow-y: auto;
+        }
+        .message {
+            padding: 10px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 60%;
+            word-wrap: break-word;
+        }
+        .message.sent {
+            background: #ff6f61;
+            color: #fff;
+            align-self: flex-end;
+        }
+        .message.received {
+            background: #eee;
+            color: #333;
+        }
+        .message-input {
+            display: flex;
+            border-top: 1px solid #ddd;
+            padding-top: 10px;
+            align-items: center;
+        }
+        .message-input textarea {
+            width: calc(100% - 80px);
+            height: 50px;
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            resize: none;
+            outline: none;
+        }
+        .message-input button {
+            margin-left: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 20px;
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .message-input button:hover {
+            background: #ff3d2e;
+        }
+        .add-contact {
+            padding: 20px;
+            border-top: 1px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            background: #fff;
+        }
+        .add-contact input, .add-contact button {
+            margin-bottom: 10px;
+        }
+        .add-contact input {
+            padding: 10px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            outline: none;
+        }
+        .add-contact button {
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .add-contact button:hover {
+            background: #ff3d2e;
+        }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .contacts {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #ddd;
+            }
+            .chat {
+                padding: 10px;
+            }
+            .message-input textarea {
+                width: calc(100% - 60px);
+            }
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
+        }
+        .nav-bar a:hover {
+            color: #fff;
+            background: #ff6f61;
+        }
+        @media (max-width: 480px) {
+            .contacts h2 {
+                font-size: 1em;
+            }
+            .contact-list li img {
+                width: 40px;
+                height: 40px;
+            }
+            .chat-header img {
+                width: 40px;
+                height: 40px;
+            }
+            .message-input textarea {
+                height: 40px;
+            }
+            .message-input button {
+                font-size: 0.8em;
+                padding: 8px 16px;
+            }
+        }
+        .header {
+            background: #ff6f61;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ff3d2e;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+        .header input[type="text"]::placeholder {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>EduConnect</h1>
+        <input type="text" id="search-bar" placeholder="Search...">
+    </div>
+    <div class="nav-bar">
+        <a href="point.html">Points</a>
+        <a href="profile.html">Profile</a>
+        <a href="notification.html">Notifications</a>
+        <a href="message.html">Messages</a>
+        <a href="setting.html">Settings</a>
+        <a href="post.html">Post a Video</a>
+        <a href="assignments.html">Post Assignments</a>
+        <a href="classes.html">Classes</a>
+        <a href="destresser.html">Take a Break</a>
+        <a href="dashboard.html">Dashboard</a>
+    </div>
+    <div class="container">
+        <div class="contacts">
+            <h2>Contacts</h2>
+            <ul class="contact-list" id="contact-list">
+                <li onclick="selectContact(this)" data-contact-id="1" class="active">
+                    <img src="https://via.placeholder.com/50" alt="Contact Image">
+                    <span>Jane Smith</span>
+                </li>
+                <li onclick="selectContact(this)" data-contact-id="2">
+                    <img src="https://via.placeholder.com/50" alt="Contact Image">
+                    <span>Mike Johnson</span>
+                </li>
+                <li onclick="selectContact(this)" data-contact-id="3">
+                    <img src="https://via.placeholder.com/50" alt="Contact Image">
+                    <span>Emily Brown</span>
+                </li>
+                <!-- Add more contacts as needed -->
+            </ul>
+            <div class="add-contact">
+                <h3>Add New Contact</h3>
+                <input type="text" id="new-contact-name" placeholder="Contact Name">
+                <input type="url" id="new-contact-image" placeholder="Image URL">
+                <button onclick="addContact()">Add Contact</button>
+            </div>
+        </div>
+        <div class="chat">
+            <div class="chat-header">
+                <img src="https://via.placeholder.com/50" alt="Contact Image" id="chat-avatar">
+                <div>
+                    <h3 id="chat-name">Jane Smith</h3>
+                </div>
+            </div>
+            <div class="chat-content" id="chat-content">
+                <!-- Messages will be dynamically added here -->
+            </div>
+            <div class="message-input">
+                <textarea id="message-input" placeholder="Type a message..."></textarea>
+                <button onclick="sendMessage()">Send</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        function selectContact(element) {
+            // Remove 'active' class from all contacts
+            document.querySelectorAll('.contact-list li').forEach(li => li.classList.remove('active'));
+
+            // Add 'active' class to the selected contact
+            element.classList.add('active');
+
+            // Get contact details
+            const contactId = element.getAttribute('data-contact-id');
+            const contactName = element.querySelector('span').textContent;
+            const contactImage = element.querySelector('img').src;
+
+            // Update chat header
+            document.getElementById('chat-name').textContent = contactName;
+            document.getElementById('chat-avatar').src = contactImage;
+
+            // Load messages for the selected contact
+            loadMessages(contactId);
+        }
+
+        function loadMessages(contactId) {
+            const chatContent = document.getElementById('chat-content');
+            chatContent.innerHTML = ''; // Clear previous messages
+
+            // Simulated messages (replace with real data)
+            const messages = [
+                { id: 1, type: 'received', text: 'Hello!' },
+                { id: 2, type: 'sent', text: 'Hi there!' },
+                { id: 3, type: 'received', text: 'How are you?' },
+            ];
+
+            messages.forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `message ${message.type}`;
+                messageElement.textContent = message.text;
+                chatContent.appendChild(messageElement);
+            });
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('message-input');
+            const messageText = messageInput.value.trim();
+
+            if (messageText === '') return;
+
+            // Add message to chat
+            const chatContent = document.getElementById('chat-content');
+            const messageElement = document.createElement('div');
+            messageElement.className = 'message sent';
+            messageElement.textContent = messageText;
+            chatContent.appendChild(messageElement);
+
+            // Clear input field
+            messageInput.value = '';
+
+            // Scroll to the bottom
+            chatContent.scrollTop = chatContent.scrollHeight;
+        }
+
+        function addContact() {
+            const nameInput = document.getElementById('new-contact-name');
+            const imageInput = document.getElementById('new-contact-image');
+            const contactName = nameInput.value.trim();
+            const contactImage = imageInput.value.trim();
+
+            if (contactName === '' || contactImage === '') {
+                alert('Please provide both contact name and image URL.');
+                return;
+            }
+
+            // Create new contact element
+            const contactList = document.getElementById('contact-list');
+            const newContact = document.createElement('li');
+            newContact.onclick = function() { selectContact(newContact); };
+            newContact.setAttribute('data-contact-id', Date.now()); // Unique ID for the new contact
+            newContact.classList.add('contact');
+
+            newContact.innerHTML = `
+                <img src="${contactImage}" alt="Contact Image">
+                <span>${contactName}</span>
+            `;
+
+            // Add new contact to the list
+            contactList.appendChild(newContact);
+
+            // Clear input fields
+            nameInput.value = '';
+            imageInput.value = '';
+        }
+    </script>
+
+</body>
+</html>
