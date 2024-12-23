@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Points Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f4;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            margin-top: 0;
+            font-size: 2em;
+            color: #333;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+            color: #444;
+        }
+        .section label {
+            margin-bottom: 5px;
+            display: block;
+            font-weight: bold;
+        }
+        .section input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            outline: none;
+        }
+        .section button {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: #ff6f61;
+            color: #fff;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
+        }
+        .section button:hover {
+            background: #ff3d2e;
+        }
+        .points-summary {
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+        .activity-log {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        .activity-log th, .activity-log td {
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        .activity-log th {
+            background-color: #f2f2f2;
+        }
+        .activity-log tbody tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                padding: 10px;
+            }
+            .section button {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+        }
+        .nav-bar {
+            display: flex;
+            justify-content: center;
+            background: #fff;
+            border-bottom: 1px solid #ddd;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        .nav-bar a {
+            display: block;
+            padding: 15px 20px;
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+            transition: color 0.3s, background 0.3s;
+        }
+        .nav-bar a:hover {
+            color: #fff;
+            background: #ff6f61;
+        }
+        @media (max-width: 768px) {
+            .nav-bar {
+                flex-direction: column;
+                align-items: center;
+            }
+            .nav-bar a {
+                padding: 10px;
+            }
+            .header h1 {
+                font-size: 2em;
+            }
+            .header input[type="text"] {
+                width: 100%;
+            }
+            .content {
+                padding: 10px;
+            }
+            .post, .notification, .message {
+                padding: 10px;
+            }
+        }
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 1.5em;
+            }
+            .nav-bar a {
+                font-size: 0.9em;
+            }
+            .post .user-info img {
+                width: 40px;
+                height: 40px;
+                margin-right: 10px;
+            }
+        }
+        .header {
+            background: #ff6f61;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-bottom: 3px solid #ff3d2e;
+            position: relative;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .header input[type="text"] {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            border: none;
+            border-radius: 20px;
+            outline: none;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            font-size: 1em;
+        }
+        .header input[type="text"]::placeholder {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>EduConnect</h1>
+        <input type="text" id="search-bar" placeholder="Search...">
+    </div>
+    <div class="nav-bar">
+        <a href="point.html">Points</a>
+        <a href="profile.html">Profile</a>
+        <a href="notification.html">Notifications</a>
+        <a href="message.html">Messages</a>
+        <a href="setting.html">Settings</a>
+        <a href="post.html">Post a Video</a>
+        <a href="assignments.html">Post Assignments</a>
+        <a href="classes.html">Classes</a>
+        <a href="destresser.html">Take a Break</a>
+    </div>
+    <div class="container">
+        <h1>Points Tracker</h1>
+
+        <!-- Points Summary -->
+        <div class="section">
+            <h2>Total Points</h2>
+            <div class="points-summary" id="points-summary">0 Points</div>
+        </div>
+
+        <!-- Earn Points -->
+        <div class="section">
+            <h2>Earn Points</h2>
+            <label for="activity">Activity Name:</label>
+            <input type="text" id="activity" placeholder="Enter activity name">
+            <label for="points">Points Earned:</label>
+            <input type="number" id="points" placeholder="Enter points earned" min="0">
+            <button onclick="earnPoints()">Add Points</button>
+        </div>
+
+        <!-- Activity Log -->
+        <div class="section">
+            <h2>Activity Log</h2>
+            <table class="activity-log" id="activity-log">
+                <thead>
+                    <tr>
+                        <th>Activity</th>
+                        <th>Points</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Entries will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script>
+        let totalPoints = 0;
+
+        function earnPoints() {
+            const activity = document.getElementById('activity').value.trim();
+            const points = parseInt(document.getElementById('points').value.trim(), 10);
+
+            if (!activity || isNaN(points) || points <= 0) {
+                alert('Please enter a valid activity and points.');
+                return;
+            }
+
+            totalPoints += points;
+            document.getElementById('points-summary').innerText = `${totalPoints} Points`;
+
+            const date = new Date().toLocaleString();
+            const logTable = document.getElementById('activity-log').getElementsByTagName('tbody')[0];
+            const newRow = logTable.insertRow();
+            newRow.insertCell(0).innerText = activity;
+            newRow.insertCell(1).innerText = points;
+            newRow.insertCell(2).innerText = date;
+
+            // Clear inputs
+            document.getElementById('activity').value = '';
+            document.getElementById('points').value = '';
+        }
+
+        // Load points from localStorage if available
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedPoints = localStorage.getItem('totalPoints');
+            if (savedPoints) {
+                totalPoints = parseInt(savedPoints, 10);
+                document.getElementById('points-summary').innerText = `${totalPoints} Points`;
+            }
+        });
+
+        // Save points to localStorage before the page is unloaded
+        window.addEventListener('beforeunload', () => {
+            localStorage.setItem('totalPoints', totalPoints);
+        });
+    </script>
+</body>
+</html>
